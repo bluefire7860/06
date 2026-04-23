@@ -2,63 +2,56 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tabel Logika OR</title>
+    <title>Render ID</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 40px;
-        }
         table {
-            margin: auto;
             border-collapse: collapse;
-            width: 300px;
+            margin: auto;
+            margin-top: 40px;
         }
         th, td {
             border: 1px solid black;
-            padding: 10px;
+            padding: 10px 20px;
+            text-align: center;
         }
         th {
             background-color: #4CAF50;
             color: white;
         }
-        .true {
-            background-color: #90ee90;
-        }
-        .false {
-            background-color: #f08080;
+        .box {
+            padding: 10px;
+            background-color: lightblue;
         }
     </style>
 </head>
 <body>
 
-<h2>Tabel Logika OR (Render)</h2>
+<h2 style="text-align:center;">Tabel Render ID</h2>
 
 <table>
     <tr>
-        <th>A</th>
-        <th>B</th>
-        <th>A OR B</th>
+        <th>ID</th>
+        <th>Elemen</th>
     </tr>
     <tr>
-        <td>0</td>
-        <td>0</td>
-        <td class="false">0</td>
+        <td>bryan</td>
+        <td><div id="bryan" class="box">Bryan</div></td>
     </tr>
     <tr>
-        <td>0</td>
-        <td>1</td>
-        <td class="true">1</td>
+        <td>ilqi</td>
+        <td><div id="ilqi" class="box">Ilqi</div></td>
     </tr>
     <tr>
-        <td>1</td>
-        <td>0</td>
-        <td class="true">1</td>
+        <td>agung</td>
+        <td><div id="agung" class="box">Agung</div></td>
     </tr>
     <tr>
-        <td>1</td>
-        <td>1</td>
-        <td class="true">1</td>
+        <td>egi</td>
+        <td><div id="egi" class="box">Egi</div></td>
+    </tr>
+    <tr>
+        <td>adjie</td>
+        <td><div id="adjie" class="box">Adjie</div></td>
     </tr>
 </table>
 
