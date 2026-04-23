@@ -1,87 +1,112 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Render ID Angka</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin-top: 40px;
-        }
-        table {
-            border-collapse: collapse;
-            margin: auto;
-            margin-bottom: 40px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 10px 20px;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .box {
-            padding: 10px;
-            background-color: lightblue;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>DRY Reuse Modular Scalable</title>
+
+<style>
+    body {
+        font-family: Arial;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: auto;
+        margin-bottom: 40px;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 10px 20px;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .box {
+        padding: 10px;
+        background-color: lightblue;
+    }
+
+    /* LIST */
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        background: lightgray;
+        margin: 5px auto;
+        padding: 10px;
+        width: 200px;
+    }
+
+    /* CARD */
+    .card-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 150px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+</style>
 </head>
 <body>
+
 
 <h2>Tabel 1 (Static)</h2>
 
 <table>
-    <tr>
-        <th>ID</th>
-        <th>Nama</th>
-        <th>Render</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>bryan</td>
-        <td><div id="id1" class="box">Bryan</div></td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>ilqi</td>
-        <td><div id="id2" class="box">Ilqi</div></td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>agung</td>
-        <td><div id="id3" class="box">Agung</div></td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>egi</td>
-        <td><div id="id4" class="box">Egi</div></td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>adjie</td>
-        <td><div id="id5" class="box">Adjie</div></td>
-    </tr>
+<tr>
+    <th>ID</th>
+    <th>Nama</th>
+    <th>Render</th>
+</tr>
+<tr><td>1</td><td>bryan</td><td><div class="box">Bryan</div></td></tr>
+<tr><td>2</td><td>ilqi</td><td><div class="box">Ilqi</div></td></tr>
+<tr><td>3</td><td>agung</td><td><div class="box">Agung</div></td></tr>
+<tr><td>4</td><td>egi</td><td><div class="box">Egi</div></td></tr>
+<tr><td>5</td><td>adjie</td><td><div class="box">Adjie</div></td></tr>
 </table>
 
-<h2>Tabel 2 (Dynamic - DRY, Reuse, Modular, Scalable)</h2>
+<!-- ========================= -->
+<!-- TABEL 2 (DYNAMIC) -->
+<!-- ========================= -->
+<h2>Tabel 2 (Dynamic)</h2>
 
 <table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Render</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Nama</th>
+    <th>Render</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
 </table>
+
+
+<h2>List (Reuse Data)</h2>
+<ul id="listData"></ul>
+
+
+<h2>Card (Modular UI)</h2>
+<div class="card-container" id="cardContainer"></div>
 
 <script>
 
-
-    
 const data = [
     {id: 1, nama: "Bryan"},
     {id: 2, nama: "Ilqi"},
@@ -91,9 +116,7 @@ const data = [
 ];
 
 
-
-    
-function createRow(item) {
+function createRow(item){
     return `
         <tr>
             <td>${item.id}</td>
@@ -103,16 +126,28 @@ function createRow(item) {
     `;
 }
 
+function createList(item){
+    return `<li>${item.id} - ${item.nama}</li>`;
+}
 
-    
-function renderTable() {
-    const rows = data.map(createRow).join("");
-    document.getElementById("tableBody").innerHTML = rows;
+function createCard(item){
+    return `
+        <div class="card">
+            <h4>${item.nama}</h4>
+            <p>ID: ${item.id}</p>
+        </div>
+    `;
 }
 
 
-    
-renderTable();
+function renderAll(){
+    document.getElementById("tableBody").innerHTML = data.map(createRow).join("");
+    document.getElementById("listData").innerHTML = data.map(createList).join("");
+    document.getElementById("cardContainer").innerHTML = data.map(createCard).join("");
+}
+
+
+renderAll();
 </script>
 
 </body>
