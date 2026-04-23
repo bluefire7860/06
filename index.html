@@ -5,125 +5,115 @@
 <title>DRY Reuse Modular Scalable</title>
 
 <style>
-    body {
-        font-family: Arial;
-        text-align: center;
-        margin-top: 40px;
-    }
+body {
+    font-family: Arial;
+    text-align: center;
+    margin-top: 30px;
+}
 
-    table {
-        border-collapse: collapse;
-        margin: auto;
-        margin-bottom: 40px;
-    }
+table {
+    border-collapse: collapse;
+    margin: auto;
+    margin-bottom: 30px;
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px 20px;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
 
-    th, td {
-        border: 1px solid black;
-        padding: 10px 20px;
-    }
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    background: lightgray;
+    margin: 5px auto;
+    padding: 10px;
+    width: 200px;
+}
 
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    .box {
-        padding: 10px;
-        background-color: lightblue;
-    }
-
-    /* LIST */
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    li {
-        background: lightgray;
-        margin: 5px auto;
-        padding: 10px;
-        width: 200px;
-    }
-
-    /* CARD */
-    .card-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .card {
-        border: 1px solid #ccc;
-        padding: 15px;
-        width: 150px;
-        border-radius: 10px;
-        background-color: #f9f9f9;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    }
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+.card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 150px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
 </style>
+
 </head>
 <body>
 
 
-<h2>Tabel 1 (Static)</h2>
-
+<h2>Tabel Static</h2>
 <table>
-<tr>
-    <th>ID</th>
-    <th>Nama</th>
-    <th>Render</th>
-</tr>
-<tr><td>1</td><td>bryan</td><td><div class="box">Bryan</div></td></tr>
-<tr><td>2</td><td>ilqi</td><td><div class="box">Ilqi</div></td></tr>
-<tr><td>3</td><td>agung</td><td><div class="box">Agung</div></td></tr>
-<tr><td>4</td><td>egi</td><td><div class="box">Egi</div></td></tr>
-<tr><td>5</td><td>adjie</td><td><div class="box">Adjie</div></td></tr>
+<tr><th>ID</th><th>Nama</th></tr>
+<tr><td>1</td><td>Bryan</td></tr>
+<tr><td>2</td><td>Ilqi</td></tr>
+<tr><td>3</td><td>Agung</td></tr>
+<tr><td>4</td><td>Egi</td></tr>
+<tr><td>5</td><td>Adjie</td></tr>
 </table>
 
-<!-- ========================= -->
-<!-- TABEL 2 (DYNAMIC) -->
-<!-- ========================= -->
-<h2>Tabel 2 (Dynamic)</h2>
 
+<h2>Tabel Dynamic</h2>
 <table>
 <thead>
-<tr>
-    <th>ID</th>
-    <th>Nama</th>
-    <th>Render</th>
-</tr>
+<tr><th>ID</th><th>Nama</th></tr>
 </thead>
 <tbody id="tableBody"></tbody>
 </table>
 
+<h2>List Static</h2>
+<ul>
+<li>1 - Bryan</li>
+<li>2 - Ilqi</li>
+<li>3 - Agung</li>
+<li>4 - Egi</li>
+<li>5 - Adjie</li>
+</ul>
 
-<h2>List (Reuse Data)</h2>
-<ul id="listData"></ul>
+
+<h2>List Dynamic</h2>
+<ul id="listDynamic"></ul>
+
+<h2>Card Static</h2>
+<div class="card-container">
+<div class="card">Bryan (1)</div>
+<div class="card">Ilqi (2)</div>
+<div class="card">Agung (3)</div>
+<div class="card">Egi (4)</div>
+<div class="card">Adjie (5)</div>
+</div>
 
 
-<h2>Card (Modular UI)</h2>
-<div class="card-container" id="cardContainer"></div>
+<h2>Card Dynamic</h2>
+<div class="card-container" id="cardDynamic"></div>
 
 <script>
 
 const data = [
-    {id: 1, nama: "Bryan"},
-    {id: 2, nama: "Ilqi"},
-    {id: 3, nama: "Agung"},
-    {id: 4, nama: "Egi"},
-    {id: 5, nama: "Adjie"}
+    {id:1, nama:"Bryan"},
+    {id:2, nama:"Ilqi"},
+    {id:3, nama:"Agung"},
+    {id:4, nama:"Egi"},
+    {id:5, nama:"Adjie"}
 ];
 
 
-function createRow(item){
-    return `
-        <tr>
-            <td>${item.id}</td>
-            <td>${item.nama}</td>
-            <td><div class="box">${item.nama}</div></td>
-        </tr>
-    `;
+function createTableRow(item){
+    return `<tr><td>${item.id}</td><td>${item.nama}</td></tr>`;
 }
 
 function createList(item){
@@ -131,21 +121,20 @@ function createList(item){
 }
 
 function createCard(item){
-    return `
-        <div class="card">
-            <h4>${item.nama}</h4>
-            <p>ID: ${item.id}</p>
-        </div>
-    `;
+    return `<div class="card">${item.nama} (${item.id})</div>`;
 }
 
 
 function renderAll(){
-    document.getElementById("tableBody").innerHTML = data.map(createRow).join("");
-    document.getElementById("listData").innerHTML = data.map(createList).join("");
-    document.getElementById("cardContainer").innerHTML = data.map(createCard).join("");
-}
+    document.getElementById("tableBody").innerHTML =
+        data.map(createTableRow).join("");
 
+    document.getElementById("listDynamic").innerHTML =
+        data.map(createList).join("");
+
+    document.getElementById("cardDynamic").innerHTML =
+        data.map(createCard).join("");
+}
 
 renderAll();
 </script>
